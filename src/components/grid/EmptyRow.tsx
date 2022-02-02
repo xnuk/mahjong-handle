@@ -1,7 +1,8 @@
 import { Cell } from './Cell'
+import { HAND_SIZE } from '../../constants/settings'
 
 export const EmptyRow = () => {
-  const emptyCells = Array.from(Array(5))
+  const emptyCells = Array.from(Array(HAND_SIZE))
 
   return (
     <div className="flex justify-center mb-1">

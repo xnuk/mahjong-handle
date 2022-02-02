@@ -1,12 +1,16 @@
+import GraphemeSplitter from 'grapheme-splitter'
 import { Cell } from './Cell'
+import { HAND_SIZE } from '../../constants/settings'
+
+const graphemeSplitter = new GraphemeSplitter()
 
 type Props = {
   guess: string
 }
 
 export const CurrentRow = ({ guess }: Props) => {
-  const splitGuess = guess.split('')
-  const emptyCells = Array.from(Array(5 - splitGuess.length))
+  const splitGuess = graphemeSplitter.splitGraphemes(guess)
+  const emptyCells = Array.from(Array(HAND_SIZE - splitGuess.length))
 
   return (
     <div className="flex justify-center mb-1">

@@ -16,5 +16,11 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/generateHands.ts"],
+  "ts-node": {
+    "compilerOptions": {
+      "isolatedModules": false
+    }
+  }
 }

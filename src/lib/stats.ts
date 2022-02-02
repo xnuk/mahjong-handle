@@ -3,6 +3,7 @@ import {
   loadStatsFromLocalStorage,
   saveStatsToLocalStorage,
 } from './localStorage'
+import { GUESS_MAX } from '../constants/settings'
 
 // In stats array elements 0-5 are successes in 1-6 trys
 
@@ -15,7 +16,7 @@ export const addStatsForCompletedGame = (
 
   stats.totalGames += 1
 
-  if (count > 5) {
+  if (count >= GUESS_MAX) {
     // A fail situation
     stats.currentStreak = 0
     stats.gamesFailed += 1
@@ -35,7 +36,7 @@ export const addStatsForCompletedGame = (
 }
 
 const defaultStats: GameStats = {
-  winDistribution: [0, 0, 0, 0, 0, 0],
+  winDistribution: new Array(GUESS_MAX).fill(0),
   gamesFailed: 0,
   currentStreak: 0,
   bestStreak: 0,

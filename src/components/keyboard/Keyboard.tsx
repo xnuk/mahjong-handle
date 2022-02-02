@@ -30,11 +30,6 @@ export const Keyboard = ({ onChar, onDelete, onEnter, guesses }: Props) => {
         onEnter()
       } else if (e.code === 'Backspace') {
         onDelete()
-      } else {
-        const key = e.key.toUpperCase()
-        if (key.length === 1 && key >= 'A' && key <= 'Z') {
-          onChar(key)
-        }
       }
     }
     window.addEventListener('keyup', listener)
@@ -45,43 +40,57 @@ export const Keyboard = ({ onChar, onDelete, onEnter, guesses }: Props) => {
 
   return (
     <div>
-      <div className="flex justify-center mb-1">
-        <Key value="Q" onClick={onClick} status={charStatuses['Q']} />
-        <Key value="W" onClick={onClick} status={charStatuses['W']} />
-        <Key value="E" onClick={onClick} status={charStatuses['E']} />
-        <Key value="R" onClick={onClick} status={charStatuses['R']} />
-        <Key value="T" onClick={onClick} status={charStatuses['T']} />
-        <Key value="Y" onClick={onClick} status={charStatuses['Y']} />
-        <Key value="U" onClick={onClick} status={charStatuses['U']} />
-        <Key value="I" onClick={onClick} status={charStatuses['I']} />
-        <Key value="O" onClick={onClick} status={charStatuses['O']} />
-        <Key value="P" onClick={onClick} status={charStatuses['P']} />
+      <div className="flex justify-center mb-1 sm:text-3xl text-2xl">
+        <Key value="🀇" onClick={onClick} status={charStatuses['🀇']} />
+        <Key value="🀈" onClick={onClick} status={charStatuses['🀈']} />
+        <Key value="🀉" onClick={onClick} status={charStatuses['🀉']} />
+        <Key value="🀊" onClick={onClick} status={charStatuses['🀊']} />
+        <Key value="🀋" onClick={onClick} status={charStatuses['🀋']} />
+        <Key value="🀌" onClick={onClick} status={charStatuses['🀌']} />
+        <Key value="🀍" onClick={onClick} status={charStatuses['🀍']} />
+        <Key value="🀎" onClick={onClick} status={charStatuses['🀎']} />
+        <Key value="🀏" onClick={onClick} status={charStatuses['🀏']} />
       </div>
-      <div className="flex justify-center mb-1">
-        <Key value="A" onClick={onClick} status={charStatuses['A']} />
-        <Key value="S" onClick={onClick} status={charStatuses['S']} />
-        <Key value="D" onClick={onClick} status={charStatuses['D']} />
-        <Key value="F" onClick={onClick} status={charStatuses['F']} />
-        <Key value="G" onClick={onClick} status={charStatuses['G']} />
-        <Key value="H" onClick={onClick} status={charStatuses['H']} />
-        <Key value="J" onClick={onClick} status={charStatuses['J']} />
-        <Key value="K" onClick={onClick} status={charStatuses['K']} />
-        <Key value="L" onClick={onClick} status={charStatuses['L']} />
+      <div className="flex justify-center mb-1 sm:text-3xl text-2xl">
+        <Key value="🀙" onClick={onClick} status={charStatuses['🀙']} />
+        <Key value="🀚" onClick={onClick} status={charStatuses['🀚']} />
+        <Key value="🀛" onClick={onClick} status={charStatuses['🀛']} />
+        <Key value="🀜" onClick={onClick} status={charStatuses['🀜']} />
+        <Key value="🀝" onClick={onClick} status={charStatuses['🀝']} />
+        <Key value="🀞" onClick={onClick} status={charStatuses['🀞']} />
+        <Key value="🀟" onClick={onClick} status={charStatuses['🀟']} />
+        <Key value="🀠" onClick={onClick} status={charStatuses['🀠']} />
+        <Key value="🀡" onClick={onClick} status={charStatuses['🀡']} />
       </div>
-      <div className="flex justify-center">
-        <Key width={65.4} value="ENTER" onClick={onClick}>
-          {ENTER_TEXT}
-        </Key>
-        <Key value="Z" onClick={onClick} status={charStatuses['Z']} />
-        <Key value="X" onClick={onClick} status={charStatuses['X']} />
-        <Key value="C" onClick={onClick} status={charStatuses['C']} />
-        <Key value="V" onClick={onClick} status={charStatuses['V']} />
-        <Key value="B" onClick={onClick} status={charStatuses['B']} />
-        <Key value="N" onClick={onClick} status={charStatuses['N']} />
-        <Key value="M" onClick={onClick} status={charStatuses['M']} />
-        <Key width={65.4} value="DELETE" onClick={onClick}>
-          {DELETE_TEXT}
-        </Key>
+      <div className="flex justify-center mb-1 sm:text-3xl text-2xl">
+        <Key value="🀐" onClick={onClick} status={charStatuses['🀐']} />
+        <Key value="🀑" onClick={onClick} status={charStatuses['🀑']} />
+        <Key value="🀒" onClick={onClick} status={charStatuses['🀒']} />
+        <Key value="🀓" onClick={onClick} status={charStatuses['🀓']} />
+        <Key value="🀔" onClick={onClick} status={charStatuses['🀔']} />
+        <Key value="🀕" onClick={onClick} status={charStatuses['🀕']} />
+        <Key value="🀖" onClick={onClick} status={charStatuses['🀖']} />
+        <Key value="🀗" onClick={onClick} status={charStatuses['🀗']} />
+        <Key value="🀘" onClick={onClick} status={charStatuses['🀘']} />
+      </div>
+      <div className="flex justify-center sm:text-3xl text-2xl">
+        <div className="text-xs">
+          <Key width={50} value="ENTER" onClick={onClick}>
+            {ENTER_TEXT}
+          </Key>
+        </div>
+        <Key value="🀀" onClick={onClick} status={charStatuses['🀀']} />
+        <Key value="🀁" onClick={onClick} status={charStatuses['🀁']} />
+        <Key value="🀂" onClick={onClick} status={charStatuses['🀂']} />
+        <Key value="🀃" onClick={onClick} status={charStatuses['🀃']} />
+        <Key value="🀆" onClick={onClick} status={charStatuses['🀆']} />
+        <Key value="🀅" onClick={onClick} status={charStatuses['🀅']} />
+        <Key value="🀄" onClick={onClick} status={charStatuses['🀄']} />
+        <div className="text-xs">
+          <Key width={50} value="DELETE" onClick={onClick}>
+            {DELETE_TEXT}
+          </Key>
+        </div>
       </div>
     </div>
   )

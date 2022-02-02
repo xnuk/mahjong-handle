@@ -4,6 +4,7 @@ import {
   SunIcon,
 } from '@heroicons/react/outline'
 import { useState, useEffect } from 'react'
+import GraphemeSplitter from 'grapheme-splitter'
 import { Alert } from './components/alerts/Alert'
 import { Grid } from './components/grid/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
@@ -19,16 +20,31 @@ import {
   WORD_NOT_FOUND_MESSAGE,
   CORRECT_WORD_MESSAGE,
 } from './constants/strings'
-import { isWordInWordList, isWinningWord, solution } from './lib/words'
+import {
+  isWordInWordList,
+  isWinningWord,
+  solution,
+  isTsumo,
+  wind,
+} from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
   loadGameStateFromLocalStorage,
   saveGameStateToLocalStorage,
 } from './lib/localStorage'
+import { HAND_SIZE, GUESS_MAX } from './constants/settings'
 
 import './App.css'
 
 const ALERT_TIME_MS = 2000
+const graphemeSplitter = new GraphemeSplitter()
+
+const windMap: { [id: number]: string } = {
+  1: '東',
+  2: '南',
+  3: '西',
+  4: '北',
+}
 
 function App() {
   const prefersDarkMode = window.matchMedia(
@@ -60,7 +76,7 @@ function App() {
     if (gameWasWon) {
       setIsGameWon(true)
     }
-    if (loaded.guesses.length === 6 && !gameWasWon) {
+    if (loaded.guesses.length === GUESS_MAX && !gameWasWon) {
       setIsGameLost(true)
     }
     return loaded.guesses
@@ -103,20 +119,26 @@ function App() {
   }, [isGameWon, isGameLost])
 
   const onChar = (value: string) => {
-    if (currentGuess.length < 5 && guesses.length < 6 && !isGameWon) {
+    if (
+      graphemeSplitter.splitGraphemes(currentGuess).length < HAND_SIZE &&
+      guesses.length < GUESS_MAX &&
+      !isGameWon
+    ) {
       setCurrentGuess(`${currentGuess}${value}`)
     }
   }
 
   const onDelete = () => {
-    setCurrentGuess(currentGuess.slice(0, -1))
+    setCurrentGuess(
+      graphemeSplitter.splitGraphemes(currentGuess).slice(0, -1).join('')
+    )
   }
 
   const onEnter = () => {
     if (isGameWon || isGameLost) {
       return
     }
-    if (!(currentGuess.length === 5)) {
+    if (!(graphemeSplitter.splitGraphemes(currentGuess).length === HAND_SIZE)) {
       setIsNotEnoughLetters(true)
       return setTimeout(() => {
         setIsNotEnoughLetters(false)
@@ -132,7 +154,11 @@ function App() {
 
     const winningWord = isWinningWord(currentGuess)
 
-    if (currentGuess.length === 5 && guesses.length < 6 && !isGameWon) {
+    if (
+      graphemeSplitter.splitGraphemes(currentGuess).length === HAND_SIZE &&
+      guesses.length < GUESS_MAX &&
+      !isGameWon
+    ) {
       setGuesses([...guesses, currentGuess])
       setCurrentGuess('')
 
@@ -141,7 +167,7 @@ function App() {
         return setIsGameWon(true)
       }
 
-      if (guesses.length === 5) {
+      if (guesses.length === GUESS_MAX - 1) {
         setStats(addStatsForCompletedGame(stats, guesses.length + 1))
         setIsGameLost(true)
       }
@@ -164,6 +190,12 @@ function App() {
           className="h-6 w-6 cursor-pointer dark:stroke-white"
           onClick={() => setIsStatsModalOpen(true)}
         />
+      </div>
+      <div className="flex w-full mx-auto items-center mb-8 mt-12">
+        <h2 className="text-lg w-full text-center font-bold dark:text-white">
+          Round wind: {windMap[Math.floor(wind / 10)]} / Seat wind:{' '}
+          {windMap[wind % 10]} / {isTsumo ? 'Tsumo' : 'Ron'}
+        </h2>
       </div>
       <Grid guesses={guesses} currentGuess={currentGuess} />
       <Keyboard
