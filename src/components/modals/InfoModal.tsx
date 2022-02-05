@@ -19,6 +19,8 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p className="text-sm text-green-700 dark:text-green-500">
         The hand should have one or more yaku and all tiles are sorted in order
         of numbers and categories(m, p, s, z).
+        <br />
+        Please note that the last tile is a winning tile, so it is not sorted.
       </p>
 
       <div className="flex justify-center mb-1 mt-4">
@@ -32,10 +34,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="🀗" status="correct" />
         <Cell value="🀘" />
         <Cell value="🀔" />
+        <Cell value="🀅" />
+        <Cell value="🀅" />
+        <Cell value="🀅" />
         <Cell value="🀔" />
-        <Cell value="🀅" />
-        <Cell value="🀅" />
-        <Cell value="🀅" />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
         The tile 8s is in the hand and in the correct spot.
@@ -52,10 +54,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="🀗" />
         <Cell value="🀘" />
         <Cell value="🀔" />
+        <Cell value="🀅" />
+        <Cell value="🀅" />
+        <Cell value="🀅" />
         <Cell value="🀔" />
-        <Cell value="🀅" />
-        <Cell value="🀅" />
-        <Cell value="🀅" />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
         The tile 5p is in the hand but in the wrong spot.
@@ -72,10 +74,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="🀗" />
         <Cell value="🀘" />
         <Cell value="🀔" />
+        <Cell value="🀅" status="absent" />
+        <Cell value="🀅" status="absent" />
+        <Cell value="🀅" status="absent" />
         <Cell value="🀔" />
-        <Cell value="🀅" status="absent" />
-        <Cell value="🀅" status="absent" />
-        <Cell value="🀅" status="absent" />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
         The tile 6z is not in the hand in any spot.
