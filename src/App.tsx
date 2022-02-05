@@ -18,10 +18,12 @@ import {
   ABOUT_GAME_MESSAGE,
   NOT_ENOUGH_LETTERS_MESSAGE,
   WORD_NOT_FOUND_MESSAGE,
+  INVALID_HAND_MESSAGE,
   CORRECT_WORD_MESSAGE,
 } from './constants/strings'
 import {
   isWordInWordList,
+  isInvalidHand,
   isWinningWord,
   solution,
   isTsumo,
@@ -58,6 +60,7 @@ function App() {
   const [isNotEnoughLetters, setIsNotEnoughLetters] = useState(false)
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false)
   const [isWordNotFoundAlertOpen, setIsWordNotFoundAlertOpen] = useState(false)
+  const [isInvalidHandAlertOpen, setIsInvalidHandAlertOpen] = useState(false)
   const [isGameLost, setIsGameLost] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem('theme')
@@ -142,6 +145,13 @@ function App() {
       setIsNotEnoughLetters(true)
       return setTimeout(() => {
         setIsNotEnoughLetters(false)
+      }, ALERT_TIME_MS)
+    }
+
+    if (!isInvalidHand(currentGuess)) {
+      setIsInvalidHandAlertOpen(true)
+      return setTimeout(() => {
+        setIsInvalidHandAlertOpen(false)
       }, ALERT_TIME_MS)
     }
 
@@ -237,6 +247,10 @@ function App() {
       <Alert
         message={WORD_NOT_FOUND_MESSAGE}
         isOpen={isWordNotFoundAlertOpen}
+      />
+      <Alert
+        message={INVALID_HAND_MESSAGE}
+        isOpen={isInvalidHandAlertOpen}
       />
       <Alert message={CORRECT_WORD_MESSAGE(solution)} isOpen={isGameLost} />
       <Alert

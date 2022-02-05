@@ -5,6 +5,7 @@ export const GAME_COPIED_MESSAGE = 'Game copied to clipboard'
 export const ABOUT_GAME_MESSAGE = 'About this game'
 export const NOT_ENOUGH_LETTERS_MESSAGE = 'Not enough tiles'
 export const WORD_NOT_FOUND_MESSAGE = 'Hand must include at least one yaku'
+export const INVALID_HAND_MESSAGE = 'Invalid hand'
 export const CORRECT_WORD_MESSAGE = (solution: string) =>
   `The hand was ${solution}`
 export const ENTER_TEXT = 'Enter'

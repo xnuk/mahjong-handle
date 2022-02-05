@@ -103,6 +103,24 @@ export const convertHandToUnicode = (hand: string) => {
   return ''
 }
 
+export const isInvalidHand = (word: string) => {
+  const tiles = graphemeSplitter.splitGraphemes(word)
+  const counts: { [id: string]: number } = {};
+
+  for (const tile of tiles) {
+    counts[tile] = counts[tile] ? counts[tile] + 1 : 1;
+  }
+
+  for (const tile in counts) {
+    if (Object.prototype.hasOwnProperty.call(counts, tile)) {
+      if (counts[tile] > 4) {
+        return false
+      }
+    }
+  }
+  return true
+}
+
 export const isWordInWordList = (word: string) => {
   const riichiCalc = new Riichi(convertHandToAscii(word)).calc()
   return riichiCalc.isAgari && Object.keys(riichiCalc.yaku).length > 0
