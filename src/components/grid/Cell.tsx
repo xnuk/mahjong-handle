@@ -1,4 +1,5 @@
 import { CharStatus } from '../../lib/statuses'
+import { normalize } from '../../lib/normalize'
 import classnames from 'classnames'
 
 type Props = {
@@ -22,5 +23,5 @@ export const Cell = ({ value, status }: Props) => {
     }
   )
 
-  return <div className={classes}>{value}</div>
+  return <div className={classes}>{normalize(value)}</div>
 }
