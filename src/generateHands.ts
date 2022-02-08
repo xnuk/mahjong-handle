@@ -165,7 +165,7 @@ const generateNormalHand = () => {
   }
 
   for (let i = 0; i < 4; i++) {
-    while (true) {
+    generateBody: while (true) {
       const p = Math.random()
       if (p < 0.8) {
         // straight
@@ -181,7 +181,7 @@ const generateNormalHand = () => {
           const num = initNum + j
           const tile = `${num}${category}`
           if (clonedTileMap[tile] >= 3) {
-            continue
+            continue generateBody
           } else {
             clonedTileMap[tile] += 1
           }
@@ -220,7 +220,6 @@ const generateNormalHand = () => {
       }
     }
   }
-  hand.push(hand[Math.floor(Math.random() * hand.length)])
   shuffle(hand)
   const last = hand.pop()
   return `${hand.join('')}${Math.random() < 0.25 ? '' : '+'}${last}+${
