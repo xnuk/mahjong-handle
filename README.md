@@ -21,3 +21,5 @@ $ docker run -d -p 3000:3000 game
 ```
 
 open http://localhost:3000 in browser.
+
+Uses [FluffyStuff/riichi-mahjong-tiles](https://github.com/FluffyStuff/riichi-mahjong-tiles) as icons for the tiles, which are licensed under [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).

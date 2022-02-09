@@ -1,5 +1,5 @@
 import { CharStatus } from '../../lib/statuses'
-import { normalize } from '../../lib/normalize'
+import { RenderTile } from '../render/Render'
 import classnames from 'classnames'
 
 type Props = {
@@ -23,5 +23,5 @@ export const Cell = ({ value, status }: Props) => {
     }
   )
 
-  return <div className={classes}>{normalize(value)}</div>
+  return <div className={classes}><RenderTile tile={value} /></div>
 }

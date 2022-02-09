@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import classnames from 'classnames'
 import { KeyValue } from '../../lib/keyboard'
 import { CharStatus } from '../../lib/statuses'
-import { normalize } from '../../lib/normalize'
+import { RenderTile } from '../render/Render'
 
 type Props = {
   children?: ReactNode
@@ -43,7 +43,7 @@ export const Key = ({
       className={classes}
       onClick={handleClick}
     >
-      {children || normalize(value)}
+      {children || <RenderTile tile={value} />}
     </button>
   )
 }
