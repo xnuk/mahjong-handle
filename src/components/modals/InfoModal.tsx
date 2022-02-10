@@ -30,10 +30,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="🀜" />
         <Cell value="🀝" />
         <Cell value="🀞" />
+        <Cell value="🀔" />
         <Cell value="🀖" />
         <Cell value="🀗" status="correct" />
         <Cell value="🀘" />
-        <Cell value="🀔" />
         <Cell value="🀅" />
         <Cell value="🀅" />
         <Cell value="🀅" />
@@ -50,10 +50,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="🀜" />
         <Cell value="🀝" status="present" />
         <Cell value="🀞" />
+        <Cell value="🀔" />
         <Cell value="🀖" />
         <Cell value="🀗" />
         <Cell value="🀘" />
-        <Cell value="🀔" />
         <Cell value="🀅" />
         <Cell value="🀅" />
         <Cell value="🀅" />
@@ -70,10 +70,10 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
         <Cell value="🀜" />
         <Cell value="🀝" />
         <Cell value="🀞" />
+        <Cell value="🀔" />
         <Cell value="🀖" />
         <Cell value="🀗" />
         <Cell value="🀘" />
-        <Cell value="🀔" />
         <Cell value="🀅" status="absent" />
         <Cell value="🀅" status="absent" />
         <Cell value="🀅" status="absent" />
