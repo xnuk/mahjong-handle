@@ -4,8 +4,8 @@ const { readFile, writeFile } = require('fs/promises')
 const glob = require('fast-glob')
 const { optimize } = require('svgo')
 
-const main = async (verbose) => {
-  const paths = await glob(['../../public/tiles/**/*.svg'], {
+const main = async (verbose: boolean) => {
+  const paths = await glob(['../../build/tiles/**/*.svg'], {
     cwd: __dirname,
     absolute: true,
     extglob: false,
@@ -14,7 +14,7 @@ const main = async (verbose) => {
   console.log('Minifing SVG tiles...')
 
   const tasks = Promise.all(
-    paths.map(async (path) => {
+    paths.map(async (path: string) => {
       const source = await readFile(path, 'utf8')
       const result = optimize(source, { multipass: true })
 

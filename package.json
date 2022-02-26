@@ -24,14 +24,14 @@
     "web-vitals": "^2.1.3"
   },
   "scripts": {
-    "build": "node src/scripts/svg-minify.js -- -v && react-scripts build",
+    "build": "react-scripts build && ts-node src/scripts/svgMinify.ts -- -v ",
     "eject": "react-scripts eject",
     "fix": "prettier --write src",
     "lint": "prettier --check src",
     "start": "react-scripts start",
     "test": "react-scripts test",
     "prepare": "husky install",
-    "generate-hands": "ts-node src/generateHands.ts"
+    "generate-hands": "ts-node src/scripts/generateHands.ts"
   },
   "eslintConfig": {
     "extends": [

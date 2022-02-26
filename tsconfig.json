@@ -17,7 +17,7 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
-  "exclude": ["src/generateHands.ts"],
+  "exclude": ["src/scripts/generateHands.ts", "src/scripts/svgMinify.ts"],
   "ts-node": {
     "compilerOptions": {
       "isolatedModules": false
