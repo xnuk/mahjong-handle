@@ -8,8 +8,16 @@ export const RenderTile = ({ tile }: Props) => {
   if (tile === undefined) return null
   return (
     <>
-      <img className='p-1 block dark:hidden drop-shadow-tile-light' src={`/tiles/light/${tileToSVGMap[tile]}`} alt={tileToNameMap[tile]} />
-      <img className='p-1 hidden dark:!block drop-shadow-tile-dark' src={`/tiles/dark/${tileToSVGMap[tile]}`} alt={tileToNameMap[tile]} />
+      <img
+        className="p-1 light:block dark:hidden drop-shadow-tile-light"
+        src={`/tiles/light/${tileToSVGMap[tile]}`}
+        alt={tileToNameMap[tile]}
+      />
+      <img
+        className="p-1 light:hidden dark:block drop-shadow-tile-dark"
+        src={`/tiles/dark/${tileToSVGMap[tile]}`}
+        alt={tileToNameMap[tile]}
+      />
     </>
   )
 }

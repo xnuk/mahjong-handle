@@ -88,10 +88,14 @@ function App() {
   const [stats, setStats] = useState(() => loadStats())
 
   useEffect(() => {
+    const classList = document.documentElement.classList
+
     if (isDarkMode) {
-      document.documentElement.classList.add('dark')
+      classList.remove('light')
+      classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      classList.remove('dark')
+      classList.add('light')
     }
   }, [isDarkMode])
 
