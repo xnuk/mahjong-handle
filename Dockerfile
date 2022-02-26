@@ -4,7 +4,7 @@ RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
 COPY . .
 
-RUN npm install
+RUN npm ci
 
 ENV NODE_ENV production
 RUN npm run build
