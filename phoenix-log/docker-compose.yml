@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  phoenix:
+    build: .
+    volumes:
+      - ./db:/phoenix-logs/db
+      - ./extract-hands.py:/phoenix-logs/extract-hands.py
+      - ./result:/phoenix-logs/result
+    command: python extract-hands.py

@@ -31,7 +31,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "prepare": "husky install",
-    "generate-hands": "ts-node src/scripts/generateHands.ts"
+    "verify-hands": "ts-node src/scripts/verifyHands.ts"
   },
   "eslintConfig": {
     "extends": [
