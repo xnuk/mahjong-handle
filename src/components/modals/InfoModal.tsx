@@ -82,6 +82,12 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p className="text-sm text-gray-500 dark:text-gray-300">
         The tile 6z is not in the hand in any spot.
       </p>
+
+      <p className="text-sm text-gray-500 dark:text-gray-300">
+        You can also use keyboard shortcuts to enter tiles. For example, you can
+        enter the tiles above by typing{' '}
+        <span className="font-mono">123m456p5789s666z5s</span> on your keyboard.
+      </p>
     </BaseModal>
   )
 }

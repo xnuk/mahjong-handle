@@ -1,12 +1,12 @@
 import { KeyValue } from '../../lib/keyboard'
 
 type Props = {
-  tile: KeyValue | string | undefined,
+  tile: KeyValue | string | undefined
 }
 
 export const RenderTile = ({ tile }: Props) => {
   if (tile === undefined) return null
-  return (
+  return tile > '9' ? (
     <>
       <img
         className="p-1 light:block dark:hidden drop-shadow-tile-light"
@@ -19,6 +19,8 @@ export const RenderTile = ({ tile }: Props) => {
         alt={tileToNameMap[tile]}
       />
     </>
+  ) : (
+    <div>{tile}</div>
   )
 }
 

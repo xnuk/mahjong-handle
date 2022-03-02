@@ -26,10 +26,22 @@ export const Keyboard = ({ onChar, onDelete, onEnter, guesses }: Props) => {
 
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
-      if (e.code === 'Enter') {
+      if (e.code === 'Enter' || e.code === 'NumpadEnter') {
         onEnter()
       } else if (e.code === 'Backspace') {
         onDelete()
+      } else {
+        let key = e.key.toLowerCase()
+        if (
+          (key.length === 1 && key >= '1' && key <= '9') ||
+          key === 'm' ||
+          key === 'p' ||
+          key === 's' ||
+          key === 'z'
+        ) {
+          console.log(key)
+          onChar(key)
+        }
       }
     }
     window.addEventListener('keyup', listener)

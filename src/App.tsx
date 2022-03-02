@@ -20,6 +20,7 @@ import {
   WORD_NOT_FOUND_MESSAGE,
   INVALID_HAND_MESSAGE,
   CORRECT_WORD_MESSAGE,
+  KEYBOARD_SHORTCUT_REMINDER_MESSAGE,
 } from './constants/strings'
 import {
   isWordInWordList,
@@ -126,12 +127,34 @@ function App() {
   }, [isGameWon, isGameLost])
 
   const onChar = (value: string) => {
-    if (
-      graphemeSplitter.splitGraphemes(currentGuess).length < HAND_SIZE &&
-      guesses.length < GUESS_MAX &&
-      !isGameWon
-    ) {
-      setCurrentGuess(`${currentGuess}${value}`)
+    if (value === 'm' || value === 'p' || value === 's' || value === 'z') {
+      let lookupTable = {
+        m: ['🀇', '🀈', '🀉', '🀊', '🀋', '🀌', '🀍', '🀎', '🀏'],
+        p: ['🀙', '🀚', '🀛', '🀜', '🀝', '🀞', '🀟', '🀠', '🀡'],
+        s: ['🀐', '🀑', '🀒', '🀓', '🀔', '🀕', '🀖', '🀗', '🀘'],
+        z: ['🀀', '🀁', '🀂', '🀃', '🀆', '🀅', '🀄', '', ''],
+      }
+      setCurrentGuess(
+        currentGuess.replace(
+          /[1-9]/g,
+          (match) => lookupTable[value][parseInt(match) - 1]
+        )
+      )
+    } else if (guesses.length < GUESS_MAX && !isGameWon) {
+      let trimmedGuess = currentGuess.replaceAll(/[1-9]/g, '')
+
+      if (
+        '1' <= value &&
+        value <= '9' &&
+        graphemeSplitter.splitGraphemes(currentGuess).length < HAND_SIZE
+      ) {
+        setCurrentGuess(`${currentGuess}${value}`)
+      } else if (
+        value > '9' &&
+        graphemeSplitter.splitGraphemes(trimmedGuess).length < HAND_SIZE
+      ) {
+        setCurrentGuess(`${trimmedGuess}${value}`)
+      }
     }
   }
 
@@ -145,7 +168,12 @@ function App() {
     if (isGameWon || isGameLost) {
       return
     }
-    if (!(graphemeSplitter.splitGraphemes(currentGuess).length === HAND_SIZE)) {
+    if (
+      !(
+        graphemeSplitter.splitGraphemes(currentGuess.replace(/[1-9]/g, ''))
+          .length === HAND_SIZE
+      )
+    ) {
       setIsNotEnoughLetters(true)
       return setTimeout(() => {
         setIsNotEnoughLetters(false)
@@ -247,15 +275,20 @@ function App() {
         {ABOUT_GAME_MESSAGE}
       </button>
 
-      <Alert message={NOT_ENOUGH_LETTERS_MESSAGE} isOpen={isNotEnoughLetters} />
+      <Alert
+        message={`${
+          NOT_ENOUGH_LETTERS_MESSAGE +
+          (currentGuess.match(/[1-9]/g)
+            ? KEYBOARD_SHORTCUT_REMINDER_MESSAGE
+            : '')
+        }`}
+        isOpen={isNotEnoughLetters}
+      />
       <Alert
         message={WORD_NOT_FOUND_MESSAGE}
         isOpen={isWordNotFoundAlertOpen}
       />
-      <Alert
-        message={INVALID_HAND_MESSAGE}
-        isOpen={isInvalidHandAlertOpen}
-      />
+      <Alert message={INVALID_HAND_MESSAGE} isOpen={isInvalidHandAlertOpen} />
       <Alert message={CORRECT_WORD_MESSAGE(solution)} isOpen={isGameLost} />
       <Alert
         message={successAlert}
