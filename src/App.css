@@ -1,3 +1,8 @@
+html {
+  /* Fix behavior when quickly tapping adjacent buttons */
+  touch-action: manipulation;
+}
+
 html.dark {
   background-color: rgb(15, 23, 42);
 }
