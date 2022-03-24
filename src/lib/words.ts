@@ -105,10 +105,10 @@ export const convertHandToUnicode = (hand: string) => {
 
 export const isInvalidHand = (word: string) => {
   const tiles = graphemeSplitter.splitGraphemes(word)
-  const counts: { [id: string]: number } = {};
+  const counts: { [id: string]: number } = {}
 
   for (const tile of tiles) {
-    counts[tile] = counts[tile] ? counts[tile] + 1 : 1;
+    counts[tile] = counts[tile] ? counts[tile] + 1 : 1
   }
 
   for (const tile in counts) {
@@ -132,11 +132,18 @@ export const isWinningWord = (word: string) => {
 
 export const getWordOfDay = () => {
   // February 2, 2022 Game Epoch
-  const epochMs = new Date('February 2, 2022 00:00:00').valueOf()
-  const now = Date.now()
-  const msInDay = 86400000
-  const index = Math.floor((now - epochMs) / msInDay)
-  const nextday = (index + 1) * msInDay + epochMs
+  const epoch = new Date('February 2, 2022 00:00:00')
+  const start = new Date(epoch)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  let index = 0
+  while (start < today) {
+    index++
+    start.setDate(start.getDate() + 1)
+  }
+  const nextDay = new Date(today)
+  nextDay.setDate(today.getDate() + 1)
+
   const hand = HANDS[index % HANDS.length]
 
   return {
@@ -144,7 +151,7 @@ export const getWordOfDay = () => {
     wind: parseInt(hand.slice(-2)),
     isTsumo: hand[26] !== '+',
     solutionIndex: index,
-    tomorrow: nextday,
+    tomorrow: nextDay.valueOf(),
   }
 }
 
