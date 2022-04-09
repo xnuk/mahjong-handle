@@ -1,4 +1,5 @@
 export const GAME_TITLE = 'Mahjong Handle'
+export const GAME_URL = 'https://mahjong-handle.update.sh/'
 
 export const WIN_MESSAGES = ['Great Job!', 'Awesome', 'Well done!']
 export const GAME_COPIED_MESSAGE = 'Game copied to clipboard'
