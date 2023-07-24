@@ -9,7 +9,7 @@ export const KEYBOARD_SHORTCUT_REMINDER_MESSAGE = ' (type m, p, s, or z)'
 export const WORD_NOT_FOUND_MESSAGE = 'Hand must include at least one yaku'
 export const INVALID_HAND_MESSAGE = 'Invalid hand'
 export const CORRECT_WORD_MESSAGE = (solution: string) =>
-  `The hand was ${solution}`
+  `The hand was\n${solution}`
 export const ENTER_TEXT = 'Enter'
 export const DELETE_TEXT = 'Delete'
 export const STATISTICS_TITLE = 'Statistics'
