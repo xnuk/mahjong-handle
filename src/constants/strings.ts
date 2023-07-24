@@ -20,3 +20,15 @@ export const TOTAL_TRIES_TEXT = 'Total tries'
 export const SUCCESS_RATE_TEXT = 'Success rate'
 export const CURRENT_STREAK_TEXT = 'Current streak'
 export const BEST_STREAK_TEXT = 'Best streak'
+
+export const CANNOT_ENTER_HARD_MODE_MESSAGE =
+  'Hard mode can be enabled only at start!'
+export const ENTER_HARD_MODE_MESSAGE = 'Hard mode turned on.'
+export const HARD_MODE_POSITON_SHOULD_BE = (letter: string, position: number) =>
+  `Hard mode: ${letter} should be at position ${position}.`
+export const HARD_MODE_POSITON_SHOULD_NOT_BE = (
+  letter: string,
+  position: number
+) => `Hard mode: ${letter} should not be at position ${position}.`
+export const HARD_MODE_WRONG_COUNT = (letter: string) =>
+  `Hard mode: Count of ${letter} is wrong.`

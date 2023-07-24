@@ -2,7 +2,9 @@ import {
   InformationCircleIcon,
   ChartBarIcon,
   SunIcon,
+  FireIcon,
 } from '@heroicons/react/outline'
+import { FireIcon as FireIconSolid } from '@heroicons/react/solid'
 import { useState, useEffect } from 'react'
 import GraphemeSplitter from 'grapheme-splitter'
 import { Alert } from './components/alerts/Alert'
@@ -21,6 +23,11 @@ import {
   INVALID_HAND_MESSAGE,
   CORRECT_WORD_MESSAGE,
   KEYBOARD_SHORTCUT_REMINDER_MESSAGE,
+  HARD_MODE_POSITON_SHOULD_BE,
+  HARD_MODE_POSITON_SHOULD_NOT_BE,
+  HARD_MODE_WRONG_COUNT,
+  ENTER_HARD_MODE_MESSAGE,
+  CANNOT_ENTER_HARD_MODE_MESSAGE,
 } from './constants/strings'
 import {
   isWordInWordList,
@@ -38,6 +45,7 @@ import {
 import { HAND_SIZE, GUESS_MAX } from './constants/settings'
 
 import './App.css'
+import { getHardModeError } from './lib/statuses'
 
 const ALERT_TIME_MS = 2000
 const graphemeSplitter = new GraphemeSplitter()
@@ -47,6 +55,19 @@ const windMap: { [id: number]: string } = {
   2: '南',
   3: '西',
   4: '北',
+}
+
+const useDelayedOpen = (delay: number): readonly [boolean, () => void] => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [timeout, storeTimeout] = useState(0)
+
+  const open = () => {
+    clearTimeout(timeout)
+    setIsOpen(true)
+    storeTimeout(setTimeout(() => setIsOpen(false), delay) as unknown as number)
+  }
+
+  return [isOpen, open]
 }
 
 function App() {
@@ -70,6 +91,11 @@ function App() {
       ? true
       : false
   )
+  const [isHardMode, setIsHardMode] = useState(
+    localStorage.getItem('mode') === 'hard' ? true : false
+  )
+  const [hardModeAlertMessage, setHardModeAlertMessage] = useState('')
+  const [isHardModeAlertOpen, openHardModeAlert] = useDelayedOpen(ALERT_TIME_MS)
   const [successAlert, setSuccessAlert] = useState('')
   const [guesses, setGuesses] = useState<string[]>(() => {
     const loaded = loadGameStateFromLocalStorage()
@@ -194,6 +220,23 @@ function App() {
       }, ALERT_TIME_MS)
     }
 
+    if (isHardMode) {
+      const hardModeError = getHardModeError(guesses, currentGuess)
+      if (hardModeError != null) {
+        const [status, letter, index] = hardModeError
+
+        let message = {
+          absent: HARD_MODE_WRONG_COUNT(letter),
+          correct: HARD_MODE_POSITON_SHOULD_BE(letter, index + 1),
+          present: HARD_MODE_POSITON_SHOULD_NOT_BE(letter, index + 1),
+        }[status]
+
+        setHardModeAlertMessage(message)
+        openHardModeAlert()
+        return
+      }
+    }
+
     const winningWord = isWinningWord(currentGuess)
 
     if (
@@ -216,10 +259,43 @@ function App() {
     }
   }
 
+  const toggleHardMode = () => {
+    if (isHardMode) {
+      localStorage.setItem('mode', 'normal')
+      return setIsHardMode(false)
+    }
+
+    if (guesses.length > 1) {
+      localStorage.setItem('mode', 'normal')
+      setIsHardMode(false)
+      setHardModeAlertMessage(CANNOT_ENTER_HARD_MODE_MESSAGE)
+    } else {
+      localStorage.setItem('mode', 'hard')
+      setIsHardMode(true)
+      setHardModeAlertMessage(ENTER_HARD_MODE_MESSAGE)
+    }
+    openHardModeAlert()
+  }
+
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div className="flex w-80 mx-auto items-center mb-8 mt-12">
-        <h1 className="text-xl grow font-bold dark:text-white">{GAME_TITLE}</h1>
+        <h1 className="text-xl grow font-bold dark:text-white">
+          {GAME_TITLE}
+          {isHardMode ? '*' : ''}
+        </h1>
+        <button
+          type="button"
+          className="h-6 w-6 cursor-pointer"
+          title={isHardMode ? 'Turn off hard mode' : 'Turn on hard mode'}
+          onClick={toggleHardMode}
+        >
+          {isHardMode ? (
+            <FireIconSolid className="dark:fill-white" />
+          ) : (
+            <FireIcon className="dark:stroke-white" />
+          )}
+        </button>
         <SunIcon
           className="h-6 w-6 cursor-pointer dark:stroke-white"
           onClick={() => handleDarkMode(!isDarkMode)}
@@ -257,6 +333,7 @@ function App() {
         gameStats={stats}
         isGameLost={isGameLost}
         isGameWon={isGameWon}
+        isHardMode={isHardMode}
         handleShare={() => {
           setSuccessAlert(GAME_COPIED_MESSAGE)
           return setTimeout(() => setSuccessAlert(''), ALERT_TIME_MS)
@@ -290,6 +367,7 @@ function App() {
       />
       <Alert message={INVALID_HAND_MESSAGE} isOpen={isInvalidHandAlertOpen} />
       <Alert message={CORRECT_WORD_MESSAGE(solution)} isOpen={isGameLost} />
+      <Alert message={hardModeAlertMessage} isOpen={isHardModeAlertOpen} />
       <Alert
         message={successAlert}
         isOpen={successAlert !== ''}
