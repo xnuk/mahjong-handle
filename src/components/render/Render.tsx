@@ -10,12 +10,16 @@ export const RenderTile = ({ tile }: Props) => {
     <>
       <img
         className="p-1 light:block dark:hidden drop-shadow-tile-light"
-        src={`/tiles/light/${tileToSVGMap[tile]}`}
+        src={
+          (process.env.PUBLIC_URL || '') + `/tiles/light/${tileToSVGMap[tile]}`
+        }
         alt={tileToNameMap[tile]}
       />
       <img
         className="p-1 light:hidden dark:block drop-shadow-tile-dark"
-        src={`/tiles/dark/${tileToSVGMap[tile]}`}
+        src={
+          (process.env.PUBLIC_URL || '') + `/tiles/dark/${tileToSVGMap[tile]}`
+        }
         alt={tileToNameMap[tile]}
       />
     </>
