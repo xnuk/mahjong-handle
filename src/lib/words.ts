@@ -130,17 +130,21 @@ export const isWinningWord = (word: string) => {
   return solution === word
 }
 
-export const getWordOfDay = () => {
+export const getWordOfDay = (index: number | null = null) => {
   // February 2, 2022 Game Epoch
   const epoch = new Date('February 2, 2022 00:00:00')
-  const start = new Date(epoch)
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-  let index = 0
-  while (start < today) {
-    index++
-    start.setDate(start.getDate() + 1)
+
+  if (index == null) {
+    index = 0
+    const start = new Date(epoch)
+    while (start < today) {
+      index++
+      start.setDate(start.getDate() + 1)
+    }
   }
+
   const nextDay = new Date(today)
   nextDay.setDate(today.getDate() + 1)
 
@@ -155,5 +159,13 @@ export const getWordOfDay = () => {
   }
 }
 
+const getOverriddenIndex = (): number | null => {
+  const no = new URLSearchParams(window.location.search).get('no')
+  if (no == null) return null
+  const index = +no
+  if (index >= 0) return index | 0
+  return null
+}
+
 export const { solution, wind, isTsumo, solutionIndex, tomorrow } =
-  getWordOfDay()
+  getWordOfDay(getOverriddenIndex())
