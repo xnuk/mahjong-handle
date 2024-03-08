@@ -2,7 +2,6 @@ import GraphemeSplitter from 'grapheme-splitter'
 import { getGuessStatuses } from './statuses'
 import { solutionIndex } from './words'
 import { GAME_TITLE } from '../constants/strings'
-import { GAME_URL } from '../constants/strings'
 import { GUESS_MAX } from '../constants/settings'
 
 const graphemeSplitter = new GraphemeSplitter()
@@ -15,7 +14,7 @@ export const shareStatus = (
   navigator.clipboard.writeText(
     `${GAME_TITLE}${hardMode ? '*' : ''} ${solutionIndex} ${
       lost ? 'X' : guesses.length
-    }/${GUESS_MAX}\n${GAME_URL}\n\n` + generateEmojiGrid(guesses)
+    }/${GUESS_MAX}\n${window.location.href}\n\n` + generateEmojiGrid(guesses)
   )
 }
 
